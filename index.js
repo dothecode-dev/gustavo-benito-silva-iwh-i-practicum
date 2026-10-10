@@ -26,6 +26,31 @@ res.render('updates', { title: 'Update Custom Object Form | Integrating With Hub
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
 // * Code for Route 3 goes here
+app.post('/update-cobj', async (req, res) => {
+    const newPetValues = {
+        properties: { name: req.body.name, 
+                      type: req.body.type, 
+                      breed: req.body.breed, 
+                      birth_date: req.body.birth_date 
+                    }
+    }
+
+    const newPetURL = `https://api.hubapi.com/crm/v3/objects/2-70784765`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    try { 
+        await axios.post(newPetURL, newPetValues, { headers } );
+        res.redirect('/');
+    } catch(err) {
+        console.error(err.response?.data || err.message);
+        res.status(500).send('There was an error creating the pet. Please check the server logs for more details.');
+    }
+
+});
+
 
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
