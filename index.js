@@ -10,6 +10,11 @@ app.use(express.json());
 
 // * Please DO NOT INCLUDE the private app access token in your repo. Don't do this practicum in your normal account.
 const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
+if (!PRIVATE_APP_ACCESS){
+console.error('The token is missing');
+process.exit(1);
+}
+
 const PETS_URL = `https://api.hubapi.com/crm/v3/objects/2-70784765`;
 const HEADERS = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
