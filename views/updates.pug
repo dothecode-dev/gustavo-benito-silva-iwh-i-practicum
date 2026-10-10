@@ -1,0 +1,23 @@
+doctype html
+html
+    head
+        title= title
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        h1 Add a new Pet
+        a.btn(href="/") Return to the homepage
+        div.form-wrapper
+            form(method="POST" action="/update-cobj")
+                label(for="Name") Name
+                input(type="text" id="Name" name="name" required)
+                label(for="Type") Type
+                select(id="Type" name="type")
+                    option(value="Dog") Dog
+                    option(value="Cat") Cat
+                    option(value="Fish") Fish
+                    option(value="Other") Other
+                label(for="Breed") Breed
+                input(type="text" id="Breed" name="breed" required)
+                label(for="Date") Birth Date
+                input(type="date" id="Date" name="birth_date" required)
+                button(type="submit") Create
