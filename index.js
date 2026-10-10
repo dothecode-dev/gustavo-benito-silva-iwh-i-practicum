@@ -10,20 +10,20 @@ app.use(express.json());
 
 // * Please DO NOT INCLUDE the private app access token in your repo. Don't do this practicum in your normal account.
 const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
+const PETS_URL = `https://api.hubapi.com/crm/v3/objects/2-70784765`;
+const HEADERS = {
+    Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    'Content-Type': 'application/json'
+};
 
 
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
 // * Code for Route 1 goes here
 app.get('/', async (req, res) => { 
-    const allPetsURL = `https://api.hubapi.com/crm/v3/objects/2-70784765?properties=name,type,breed,birth_date`;
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    };
-
+    
     try { 
-        const resp = await axios.get(allPetsURL, { headers });
+        const resp = await axios.get(`${PETS_URL}?properties=name,type,breed,birth_date`, { headers: HEADERS });
         const data = resp.data.results;
         res.render('homepage', { title: 'Integrating With HubSpot I Practicum', data });
     } catch(err) {
@@ -51,14 +51,8 @@ app.post('/update-cobj', async (req, res) => {
                     }
     }
 
-    const newPetURL = `https://api.hubapi.com/crm/v3/objects/2-70784765`;
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    };
-
     try { 
-        await axios.post(newPetURL, newPetValues, { headers } );
+        await axios.post(PETS_URL, newPetValues, { headers: HEADERS } );
         res.redirect('/');
     } catch(err) {
         console.error(err.response?.data || err.message);
