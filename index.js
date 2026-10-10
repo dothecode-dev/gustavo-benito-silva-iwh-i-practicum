@@ -31,12 +31,10 @@ app.get('/', async (req, res) => {
         let after;
 
         do {
-            let url = `${PETS_URL}?properties=name,type,breed,birth_date&limit=100`;
-            if (after) {
-                url += `&after=${after}`;
-            }
-
-            const resp = await axios.get(url, { headers: HEADERS });
+            const resp = await axios.get(PETS_URL, {
+                headers: HEADERS,
+                params: { properties: 'name,type,breed,birth_date', limit: 100, after }
+            });
             data.push(...resp.data.results);
             after = resp.data.paging?.next?.after;
         } while (after);

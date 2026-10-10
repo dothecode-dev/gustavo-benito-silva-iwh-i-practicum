@@ -38,7 +38,6 @@ h1 {
 table {
     width: 100%;
     max-width: 900px;
-    margin: 0 auto;
     border-collapse: separate;
     border-spacing: 0;
     background-color: white;
@@ -71,7 +70,6 @@ tbody tr:hover {
 .form-wrapper {
     font-size: 18px;
     max-width: 600px;
-    margin: 0 ;
     padding: 2rem;
     background-color: white;
     border-radius: 12px;
@@ -107,4 +105,8 @@ button {
 
 button:hover {
     background-color: #e8613f;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
 }
